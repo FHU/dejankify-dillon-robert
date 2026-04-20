@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../generated/prisma/client";
 import { fetchPage } from "@/lib/fetcher";
 import { runFullAnalysis, extractScores } from "@/analyzers";
 import { checkRateLimit, recordUsage } from "@/lib/rate-limit";
