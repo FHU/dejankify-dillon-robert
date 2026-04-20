@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
@@ -29,13 +29,9 @@ function ShellInner({
   const router = useRouter();
   const pathname = usePathname();
   const [sessions, setSessions] = useState(initialSessions);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [sidebarOpenedAt, setSidebarOpenedAt] = useState<string | null>(null);
+  const mobileSidebarOpen = sidebarOpenedAt === pathname;
   const { sessionId, chatMessages, handleSendMessage } = useSessionContext();
-
-  // Close mobile sidebar on navigation
-  useEffect(() => {
-    setMobileSidebarOpen(false);
-  }, [pathname]);
 
   const refreshSessions = useCallback(async () => {
     try {
@@ -60,7 +56,7 @@ function ShellInner({
       {mobileSidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setMobileSidebarOpen(false)}
+          onClick={() => setSidebarOpenedAt(null)}
         />
       )}
 
@@ -80,7 +76,7 @@ function ShellInner({
         <Header
           user={user}
           onSignOut={signOutAction}
-          onToggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          onToggleSidebar={() => setSidebarOpenedAt(mobileSidebarOpen ? null : pathname)}
         />
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
