@@ -4,11 +4,13 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
 RUN npm ci
+RUN npx prisma generate
 
 # Stage 2: Build the app
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/generated ./generated
 COPY . .
 RUN npm run build
 
