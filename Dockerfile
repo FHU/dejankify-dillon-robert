@@ -1,0 +1,38 @@
+ARG NODE_VERSION=22.21.1
+FROM node:${NODE_VERSION}-slim AS base
+
+LABEL fly_launch_runtime="Next.js/Prisma"
+
+WORKDIR /app
+ENV NODE_ENV="production"
+
+FROM base AS build
+
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
+
+COPY package-lock.json package.json ./
+COPY prisma .
+RUN npm ci --include=dev
+
+COPY . .
+
+# Pass a dummy DATABASE_URL so prisma.config.ts loads without erroring
+RUN DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" npx prisma generate
+
+RUN npx next build --experimental-build-mode compile
+
+RUN npm prune --omit=dev
+
+FROM base
+
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y openssl && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+COPY --from=build /app /app
+
+ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+
+EXPOSE 3000
+CMD [ "npm", "run", "start" ]
