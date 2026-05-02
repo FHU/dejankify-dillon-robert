@@ -99,3 +99,11 @@ See [DEPLOY.md](./DEPLOY.md) for full Vercel + Neon deployment instructions.
 ## License
 
 MIT
+
+## ROBERTS STUFF
+Things I learned while using Fly:
+How to install and work on secrets and the fly.toml in the terminal.
+What Fly does as a service, and why I would want to choose them over other cloud based platforms.
+Continued learning how to write a dockerfile, and a dockercompose file.
+Something that I did like was the integration with github, and the ability to auto-deploy if I was using the Fly dockerfile.
+Something that I didnt like was that Fly really wants you to use their dockerfile, unless you work in the terminal you are have to use some sort of dockerfile that may not fit your project.
