@@ -99,3 +99,7 @@ See [DEPLOY.md](./DEPLOY.md) for full Vercel + Neon deployment instructions.
 ## License
 
 MIT
+
+## ROBERTS NOTES
+The second place that I deployed the app to was Railway.
+Railway was super easy to connect our repo to. The only problem was the railway app on github needed acsess to our repo, and I didnt have admin privledges. Other than that it was super easy!
