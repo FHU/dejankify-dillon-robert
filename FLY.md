@@ -2,8 +2,8 @@
 
 > **Note:** Rename this file to match the service you used (e.g., `FLY.md`, `RENDER.md`, `RAILWAY.md`).
 
-**Service Used:** <!-- e.g., Fly.io, Render, Railway -->  
-**Team Members:** <!-- List the name(s) of who worked on this deployment -->
+**Service Used:** <!-- Fly.io-->  
+**Team Members:** <!-- Robert Smith -->
 
 ---
 
@@ -17,7 +17,7 @@ environment variables or secrets.
 
 <!-- Write 1–2 paragraphs here -->
 
----
+First of all I wrote the dockerfile, and the docker compose file. After that I connected the repo to Fly, once that was done Fly pretty much took over the rest of the deployment. FLy creates its own dockerfile, and if you go through the browser installer, Fly will try to use its own dockerfile which can break your app. This is what happened to me, so I had to deploy from the terminal in VSCode. I also had to manually pull down the fly.toml file since I was working in the terminal. After that and I had changed somethings in the dockerfile, I was able to deploy to fly.
 
 ## 2. Pros and Cons
 
@@ -26,7 +26,7 @@ compared to a platform-as-a-service like Vercel?
 
 <!-- Write 1–2 paragraphs here. You may use a list to organize pros/cons if helpful. -->
 
----
+A big strength is writing its own dockerfile, so you dont have to worry about that yourself, however a downside is it writes its own dockerfile so if you already have one, and its unique then its never used.
 
 ## 3. Challenges and Surprises
 
@@ -35,3 +35,5 @@ This could be something that didn't work as expected, a configuration quirk you 
 around, something that impressed you, or something you wish you had known going in.
 
 <!-- Write 1–2 paragraphs here -->
+
+Again a challenge was trying to deploy while having a dockerfile that was not like the one fly had. The conflicting files were breaking a lot of things.
